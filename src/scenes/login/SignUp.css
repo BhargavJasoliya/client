@@ -1,0 +1,19 @@
+.main {
+    justify-content: center;
+    display: contents;
+    height: 1000;
+
+}
+
+.heading {
+    display: flex;
+    justify-content: center;
+    /* padding-bottom: 10%; */
+}
+
+.form {
+    background-color: blueviolet;
+    display: flex;
+
+    justify-content: center;
+}

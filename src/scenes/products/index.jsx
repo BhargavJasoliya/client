@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import Header from "components/Header";
 import { useGetProductsQuery } from "state/api";
-
+import { useNavigate } from "react-router-dom";
 const Product = ({
   _id,
   name,
@@ -86,12 +86,19 @@ const Product = ({
 };
 
 const Products = () => {
+  const navigate = useNavigate();
   const { data, isLoading } = useGetProductsQuery();
   const isNonMobile = useMediaQuery("(min-width: 1000px)");
-
+  const handleButtonClick = () => {
+    console.log('Button clicked!');
+    navigate('/createProduct');
+  };
   return (
     <Box m="1.5rem 2.5rem">
       <Header title="PRODUCTS" subtitle="See your list of products." />
+      <div>
+        <button onClick={handleButtonClick}>Add Product</button>
+      </div>
       {data || !isLoading ? (
         <Box
           mt="20px"

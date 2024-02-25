@@ -1,7 +1,8 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
+import store from "./store"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { themeSettings } from "theme";
 import Layout from "scenes/layout";
@@ -16,8 +17,12 @@ import Monthly from "scenes/monthly";
 import Breakdown from "scenes/breakdown";
 import Admin from "scenes/admin";
 import Performance from "scenes/performance";
-
+import LoginSignUp from "scenes/login/LoginSignUp";
+import SignUp from "scenes/login/SignUp";
+import AddProduct from "scenes/products/AddProduct";
 function App() {
+  // const { user } = useSelector((state) => state.user);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   return (
@@ -26,8 +31,12 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Routes>
+            {!isAuthenticated && <Route path="/login" element={<LoginSignUp />} />}
+
             <Route element={<Layout />}>
-              <Route path="/" element={<Navigate to="/dashboard" replace />} />
+              <Route path="/" element={<Navigate to="/login" replace />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/createProduct" element={<AddProduct />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/products" element={<Products />} />
               <Route path="/customers" element={<Customers />} />

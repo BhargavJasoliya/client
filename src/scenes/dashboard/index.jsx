@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useNavigate } from "react";
 import FlexBetween from "components/FlexBetween";
 import Header from "components/Header";
 import {
@@ -22,6 +22,9 @@ import { useGetDashboardQuery } from "state/api";
 import StatBox from "components/StatBox";
 
 const Dashboard = () => {
+  const [loginUser, setLoginUser] = useState();
+  // const navigate = useNavigate();
+
   const theme = useTheme();
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
   const { data, isLoading } = useGetDashboardQuery();

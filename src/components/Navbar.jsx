@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   LightModeOutlined,
   DarkModeOutlined,
@@ -23,15 +23,19 @@ import {
   MenuItem,
   useTheme,
 } from "@mui/material";
-
+import { useNavigate } from "react-router-dom";
 const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
   const theme = useTheme();
-
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const isOpen = Boolean(anchorEl);
   const handleClick = (event) => setAnchorEl(event.currentTarget);
-  const handleClose = () => setAnchorEl(null);
+  const handleClose = () => {
+    setAnchorEl(null);
+    localStorage.removeItem('id');
+    navigate('/');
+  }
 
   return (
     <AppBar
@@ -97,15 +101,15 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                 <Typography
                   fontWeight="bold"
                   fontSize="0.85rem"
-                  sx={{ color: theme.palette.secondary[100] }}
+                  sx={{ color: theme?.palette?.secondary[100] }}
                 >
-                  {user.name}
+                  {user?.name}
                 </Typography>
                 <Typography
                   fontSize="0.75rem"
                   sx={{ color: theme.palette.secondary[200] }}
                 >
-                  {user.occupation}
+                  {user?.occupation}
                 </Typography>
               </Box>
               <ArrowDropDownOutlined
